@@ -1,41 +1,56 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { 
-  name: 'test',
-  startScore: [],
+const initialState = {
+  startScore: 0,
   activePlayerId: 0,
-  players:
-    {
-      scoreHistory : [],
-      actualScore: 0,
-      name: '',
-      id: 0
-    },
-  startScore3: [] 
-}
+  players: []
+};
 
 export const gameSlice = createSlice({
-  name: 'game',
+  name: "game",
   initialState,
   reducers: {
     chooseStartScore: (state, action) => {
-      state.value = action.payload;
+      state.startScore = action.payload;
     },
     subtractPoints: (state, action) => {
-      state.value -= action.payload;
-      state.players.scoreHistory.push(action.payload)
-      console.log(state.players.scoreHistory[0])
+      let activePlayer = state.players.filter(
+        x => x.id === state.activePlayerId
+      )[0];
+      activePlayer.actualScore += action.payload;
+      activePlayer.scoreHistory.push(action.payload);
     },
-  },
+    addPlayer: (state, action) => {
+      state.players.push(action.payload);
+    },
+    deletePlayer: (state, action) => {
+      state.activePlayerId = action.payload;
+      let players = state.players;
+      for (let i = 0; i < players.length; i++) {
+        if (players[i].id === state.activePlayerId) {
+          players.splice(i, 1);
+          state.activePlayerId = 0;
+        }
+      }
+    },
+    setActivePlayer: (state, action) => {
+      state.activePlayerId = action.payload;
+    }
+  }
 });
 
-export const { chooseStartScore, subtractPoints } = gameSlice.actions;
+export const {
+  chooseStartScore,
+  subtractPoints,
+  addUsername,
+  addPlayer,
+  setActivePlayer,
+  deletePlayer
+} = gameSlice.actions;
 
-
-// The function below is called a selector and allows us to select a value from
-// the state. Selectors can also be defined inline where they're used instead of
-// in the slice file. For example: `useSelector((state) => state.counter.value)`
-export const selectStartScore = state => state.game.value;
-export const selectPlayerHistory = state => state.game.players.scoreHistory;
+export const selectStartScore = state => state.game.startScore;
+export const selectPlayers = state => state.game.players;
+export const selectActivePlayer = state =>
+  state.game.players.filter(x => x.id === state.game.activePlayerId)[0];
 
 export default gameSlice.reducer;
