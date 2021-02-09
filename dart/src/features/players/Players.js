@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 export function Players() {
   const dispatch = useDispatch();
   const allPlayers = useSelector(selectPlayers);
+  const [name, setName] = useState("");
+
 
   const addNewPlayer = () => {
     const newPlayer = {
@@ -16,6 +18,7 @@ export function Players() {
       name: name,
     };
     dispatch(addPlayer(newPlayer));
+    setName("")
   };
 
   const makeActive = (e) => {
@@ -25,8 +28,6 @@ export function Players() {
   const deletePlayer2 = (e) => {
     dispatch(deletePlayer(e.target.id));
   }
-
-  const [name, setName] = useState("");
 
   return (
     <div>
@@ -39,7 +40,7 @@ export function Players() {
         placeholder="username"
         onChange={e => setName(e.target.value)}
       />
-      <button onClick={addNewPlayer}>Add next player</button>
+      <button onClick={addNewPlayer}>Add new player</button>
       {allPlayers.map((x, i) => (
         <div key={i}>
           <div>{x.name}</div>

@@ -19,6 +19,14 @@ export const gameSlice = createSlice({
       )[0];
       activePlayer.actualScore += action.payload;
       activePlayer.scoreHistory.push(action.payload);
+
+      const currentIndex = state.players.indexOf(activePlayer);
+      console.log(currentIndex);
+      const nextIndex = (currentIndex + 1) % state.players.length;
+      console.log(nextIndex);
+
+      state.activePlayerId = state.players[nextIndex].id;
+      
     },
     addPlayer: (state, action) => {
       state.players.push(action.payload);
