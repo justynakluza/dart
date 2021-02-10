@@ -4,18 +4,12 @@ export const playersSlice = createSlice({
   name: 'players',
   initialState: {
     value: '',
-    username: localStorage.getItem('username') === null ? '' : localStorage.getItem('username')
 
   },
   reducers: {
     addNewPlayer: (state, action) => {
       state.value = action.payload;
     },
-
-    updateUsername: (state, val) => {
-      state.username = val.payload;
-      localStorage.setItem('username', val.payload);
-    }
   },
 });
 
