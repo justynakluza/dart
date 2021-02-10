@@ -11,7 +11,7 @@ export function Test() {
 
   return (
     <>
-      <h4>{activePlayer.name}{console.log(activePlayer)}</h4>
+      <h4>{activePlayer.name}</h4>
       <h4>Your score {startScore - activePlayer.actualScore}</h4>
       {<div>
         {activePlayer.scoreHistory !== undefined ? activePlayer.scoreHistory.map((x, i) => (

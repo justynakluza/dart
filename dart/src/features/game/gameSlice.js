@@ -19,14 +19,9 @@ export const gameSlice = createSlice({
       )[0];
       activePlayer.actualScore += action.payload;
       activePlayer.scoreHistory.push(action.payload);
-
       const currentIndex = state.players.indexOf(activePlayer);
-      console.log(currentIndex);
       const nextIndex = (currentIndex + 1) % state.players.length;
-      console.log(nextIndex);
-
       state.activePlayerId = state.players[nextIndex].id;
-      
     },
     addPlayer: (state, action) => {
       state.players.push(action.payload);
@@ -43,7 +38,7 @@ export const gameSlice = createSlice({
     },
     setActivePlayer: (state, action) => {
       state.activePlayerId = action.payload;
-    }
+      }
   }
 });
 
@@ -60,5 +55,6 @@ export const selectStartScore = state => state.game.startScore;
 export const selectPlayers = state => state.game.players;
 export const selectActivePlayer = state =>
   state.game.players.filter(x => x.id === state.game.activePlayerId)[0];
+export const selectActivePlayerId = state => state.game.activePlayerId;
 
 export default gameSlice.reducer;

@@ -4,7 +4,8 @@ import {
   addPlayer,
   selectPlayers,
   setActivePlayer,
-  deletePlayer
+  deletePlayer,
+  selectActivePlayerId
 } from "../game/gameSlice";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -12,8 +13,10 @@ import { v4 as uuidv4 } from "uuid";
 export function Players() {
   const dispatch = useDispatch();
   const allPlayers = useSelector(selectPlayers);
+  const activePlayerId = useSelector(selectActivePlayerId);
   const [name, setName] = useState("");
   const [placeholder, setPlaceholder] = useState("username");
+  const [access, setAccess] = useState(0);
 
   const addNewPlayer = () => {
     const newPlayer = {
@@ -22,33 +25,54 @@ export function Players() {
       actualScore: 0,
       name: name
     };
-    if (newPlayer.name.length === 0 ) {
+    if (newPlayer.name.length === 0) {
       setName("");
       setPlaceholder("too short");
-
-    }
-    else if (newPlayer.name.length > 15) {
+    } else if (newPlayer.name.length > 15) {
       setName("");
       setPlaceholder("too long");
-    }
-    else {
+    } else {
       dispatch(addPlayer(newPlayer));
-      setName("");
+      setName("")
     }
-  };
-
-  const makeActive = e => {
-    dispatch(setActivePlayer(e.target.id));
   };
 
   const deletePlayer2 = e => {
     dispatch(deletePlayer(e.target.id));
   };
 
+  const makeActive = e => {
+    dispatch(setActivePlayer(e.target.id));
+    console.log(allPlayers[0].id)
+  };
+
+  const makeDefaultActive = () => {
+    if (activePlayerId < 1) {
+      dispatch(setActivePlayer(allPlayers[0].id));
+    }
+  };
+
+  const arePlayersAdded = () => {
+    if (allPlayers.length === 0) {
+      setAccess(0);
+    } else if (allPlayers.length >= 1){
+      setAccess(1);
+    }
+    console.log(access)
+    console.log(allPlayers.length)
+
+  };
+  const goNext = () => {
+    arePlayersAdded();
+    if (access === 0) {
+      makeDefaultActive();
+    }
+  };
+
   return (
     <div>
       <label>
-        <h3>Username</h3>
+        <h3>Players</h3>
       </label>
       <input
         value={name}
@@ -70,8 +94,10 @@ export function Players() {
       ))}
       <br />
       <br />
-      <Link to="/Start-score" role="button">
-        Next
+      <Link to="/Start-score">
+        <button disabled={allPlayers.length < 1 ? true : false} onClick={goNext}>
+          go next
+        </button>
       </Link>
     </div>
   );
