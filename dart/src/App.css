@@ -1,3 +1,11 @@
 .App {
   text-align: center;
 }
+
+.endGamePopup:active{
+  background: yellow;
+}
+
+.endGamePopup:hidden{
+  display: none;
+}

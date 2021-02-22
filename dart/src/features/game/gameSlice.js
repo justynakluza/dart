@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   startScore: 0,
   activePlayerId: 0,
+  endGame: false,
   players: []
 };
 
@@ -19,9 +20,15 @@ export const gameSlice = createSlice({
       )[0];
       activePlayer.actualScore += action.payload;
       activePlayer.scoreHistory.push(action.payload);
-      const currentIndex = state.players.indexOf(activePlayer);
-      const nextIndex = (currentIndex + 1) % state.players.length;
-      state.activePlayerId = state.players[nextIndex].id;
+
+      if(activePlayer.actualScore === state.startScore){
+        state.endGame = true;
+      }
+      else {
+        const currentIndex = state.players.indexOf(activePlayer); //osobna metoda
+        const nextIndex = (currentIndex + 1) % state.players.length;
+        state.activePlayerId = state.players[nextIndex].id;
+      }
     },
     addPlayer: (state, action) => {
       state.players.push(action.payload);
@@ -56,5 +63,6 @@ export const selectPlayers = state => state.game.players;
 export const selectActivePlayer = state =>
   state.game.players.filter(x => x.id === state.game.activePlayerId)[0];
 export const selectActivePlayerId = state => state.game.activePlayerId;
+export const selectEndGame = state => state.game.endGame;
 
 export default gameSlice.reducer;
