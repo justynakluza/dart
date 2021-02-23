@@ -43,7 +43,6 @@ export function Players() {
 
   const makeActive = e => {
     dispatch(setActivePlayer(e.target.id));
-    console.log(allPlayers[0].id)
   };
 
   const makeDefaultActive = () => {
@@ -58,10 +57,8 @@ export function Players() {
     } else if (allPlayers.length >= 1){
       setAccess(1);
     }
-    console.log(access)
-    console.log(allPlayers.length)
-
   };
+  
   const goNext = () => {
     arePlayersAdded();
     if (access === 0) {

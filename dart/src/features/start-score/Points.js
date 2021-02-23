@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { chooseStartScore } from "./gameSlice";
+import { chooseStartScore } from "../game/gameSlice";
 import GameScore from './GameStartScore';
 import { Link } from "react-router-dom";
 
@@ -17,7 +17,9 @@ export function Points() {
           <li key={i} value={x} onClick={e => setStartScore(e.target.value)}>{x}</li>
         ))}
       </ul>
-      <Link to="/Test"><button disabled={points > 0 ? false : true} onClick={(e) => dispatch(chooseStartScore(e.id = points))}>START GAME</button></Link>
+      <Link to="/Game"><button disabled={points > 0 ? false : true} onClick={(e) => dispatch(chooseStartScore(e.id = points))}>START GAME</button></Link>
+      <br/>
+      <Link to="/"><button>Back</button></Link>
     </div>
   );
 }
