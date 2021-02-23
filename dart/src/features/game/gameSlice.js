@@ -21,10 +21,9 @@ export const gameSlice = createSlice({
       activePlayer.actualScore += action.payload;
       activePlayer.scoreHistory.push(action.payload);
 
-      if(activePlayer.actualScore === state.startScore){
+      if (activePlayer.actualScore === state.startScore) {
         state.endGame = true;
-      }
-      else {
+      } else {
         const currentIndex = state.players.indexOf(activePlayer); //osobna metoda
         const nextIndex = (currentIndex + 1) % state.players.length;
         state.activePlayerId = state.players[nextIndex].id;
@@ -45,7 +44,22 @@ export const gameSlice = createSlice({
     },
     setActivePlayer: (state, action) => {
       state.activePlayerId = action.payload;
-      }
+    },
+    startNewGame: (state) => {
+      state.startScore = 0;
+      state.activePlayerId = 0;
+      state.endGame = false;
+      state.players = [];
+    },
+    startPlayAgain: (state) => {
+      state.endGame = false;
+      let players = state.players;
+      for (let i = 0; i < players.length; i++) {
+        (players[i].scoreHistory = [])
+        &&
+        (players[i].actualScore = 0)
+        }
+    }
   }
 });
 
@@ -55,7 +69,9 @@ export const {
   addUsername,
   addPlayer,
   setActivePlayer,
-  deletePlayer
+  deletePlayer,
+  startNewGame,
+  startPlayAgain
 } = gameSlice.actions;
 
 export const selectStartScore = state => state.game.startScore;

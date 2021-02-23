@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { chooseStartScore } from "./gameSlice";
+import { chooseStartScore } from "../game/gameSlice";
 import GameScore from './GameStartScore';
 import { Link } from "react-router-dom";
 

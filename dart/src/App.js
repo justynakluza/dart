@@ -1,7 +1,7 @@
 import React from "react";
-import { Test } from "./features/testState/Test";
+import { Game } from "./features/game/Game";
 import { Players } from "./features/players/Players";
-import { Points } from "./features/game/Points";
+import { Points } from "./features/start-score/Points";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 
@@ -17,7 +17,7 @@ function App() {
             <Points />
           </Route>
           <Route exact path="/Test">
-            <Test />
+            <Game />
           </Route>
         </Switch>
       </Router>
