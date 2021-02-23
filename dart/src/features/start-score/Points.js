@@ -18,6 +18,8 @@ export function Points() {
         ))}
       </ul>
       <Link to="/Game"><button disabled={points > 0 ? false : true} onClick={(e) => dispatch(chooseStartScore(e.id = points))}>START GAME</button></Link>
+      <br/>
+      <Link to="/"><button>Back</button></Link>
     </div>
   );
 }
