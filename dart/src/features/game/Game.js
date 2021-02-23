@@ -80,7 +80,7 @@ export function Game() {
         <Link to="/">
           <button onClick={() => dispatch(startNewGame())}>New Game</button>
         </Link>{" "}
-        <Link to="/Test">
+        <Link to="/Game">
           <button onClick={() => dispatch(startPlayAgain())}>Play Again</button>
         </Link>{" "}
           {endGame ? allPlayers.map((x, i) => (

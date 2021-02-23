@@ -17,7 +17,7 @@ export function Points() {
           <li key={i} value={x} onClick={e => setStartScore(e.target.value)}>{x}</li>
         ))}
       </ul>
-      <Link to="/Test"><button disabled={points > 0 ? false : true} onClick={(e) => dispatch(chooseStartScore(e.id = points))}>START GAME</button></Link>
+      <Link to="/Game"><button disabled={points > 0 ? false : true} onClick={(e) => dispatch(chooseStartScore(e.id = points))}>START GAME</button></Link>
     </div>
   );
 }

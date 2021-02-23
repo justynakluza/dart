@@ -16,7 +16,7 @@ function App() {
           <Route exact path="/Start-score">
             <Points />
           </Route>
-          <Route exact path="/Test">
+          <Route exact path="/Game">
             <Game />
           </Route>
         </Switch>
